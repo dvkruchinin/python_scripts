@@ -5,7 +5,6 @@ import re
 
 
 dir_path = r'D:\python\reference\en'
-out_dir = r'D:\python\reference_modification\en'
 
 for root, dirs, files in os.walk(dir_path):
     for file_name in files:
