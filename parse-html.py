@@ -57,7 +57,7 @@ for root, dirs, files in os.walk(dir_path):
             if soup.find_all("span", {"class": re.compile(r't-mark-rev t-until-(c|cxx)(14|17)')}): #Only text until C/C++ 14,17
                 for j in soup.find_all("span", {"class": re.compile(r't-mark-rev t-until-(c|cxx)(14|17)')}):
                     j.decompose()
-
+# noexcept_spec.html Deprecates? Keywords?
         results_file = os.path.splitext(file_name)[0] + '.html'
 
         with io.open(os.path.join(root, file_name), 'w', encoding='utf-8') as outfile:
