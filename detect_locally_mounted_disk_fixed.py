@@ -7,6 +7,7 @@ import os
 import sys
 import psutil
 import subprocess
+import time
 
 def check_mounted_disk(disk_name):
    check_mount =  os.path.ismount(disk_name)
@@ -20,14 +21,11 @@ def get_free_space(disk):
         sys.exit(1)
     return free_space
 
-def runcmd(cmd):
-    process = subprocess.Popen('dd.exe --list', stdout=subprocess.PIPE)
-    return process.communicate()
-
 def main():
     volume = 'D:\\'
     Z = 5
     Y = 123123
+    start_time = time.time()
 
     if check_mounted_disk(volume):
         print('Disk {} is mounted'.format(volume))
@@ -40,9 +38,15 @@ def main():
 
     print('Free spcae on {}: {} MB'.format(volume, get_free_space(volume)))
 
-    for num in range(1, Z):
-        with open('dd_list' + str(num) + '.txt', 'w+') as _files:
-            _files.write(runcmd('dd.exe --list'))
+    for num in range(Z):
+        dd_output = 'dd_list' + str(num) + '.txt'
+        with open(dd_output, 'w+') as f:
+            subprocess.run(['D:\Soft\dd.exe', '--list'], stderr=f)
+
+    print('Elapsed time: {} seconds'.format(time.time() - start_time))
 
 if __name__ == '__main__':
     sys.exit(main())
+
+
+
